@@ -27,7 +27,6 @@ export default class DateTimeFuture extends Component {
         this.setState({value: value});
     }
 	onSelectLdateTime(value) {
-		console.log(value, 'value')
 		this.setState({lvalue: value});
 	}
 	dateFormat(values) {
@@ -46,7 +45,7 @@ export default class DateTimeFuture extends Component {
 		return str;
 	}
 	ldateFormat(values) {
-		//console.log(values, 'values');
+		console.log(values, 'values');
 		let obj = calendar.lunar2solar(
 			values[0].value,
 			values[1].value > 12 ? values[1].value - 12 : values[1].value,
@@ -63,42 +62,40 @@ export default class DateTimeFuture extends Component {
 		}
 		str += '(' + obj.gzYear + obj.gzMonth + obj.gzDay + obj.gzH + ')';
 		//this.setState({bzValue: bzstr});
-		
 		return str;
 	}
 	render() {
 		return (
 			<View style={styles.container}>
-				<View>
-					<List>
-						<Picker
-							title='公历'
-							data={pickerData}
-							cols={5}
-							value={this.state.value}
-							onOk={this.onSelectDateTime.bind(this)}
-							format={this.dateFormat.bind(this)}
-						>
-							<List.Item multipleLine arrow="horizontal">选择公历</List.Item>
-						</Picker>
-						<Picker
-							title='农历'
-							data={pickerLdata}
-							cols={4}
-							value={this.state.lvalue}
-							onOk={this.onSelectLdateTime.bind(this)}
-							format={this.ldateFormat.bind(this)}
-						>
-							<List.Item multipleLine arrow="horizontal">农历</List.Item>
-						</Picker>
-						
-					</List>
-				</View>
-				<View style={[styles.flexRow, {margin: 32}]}>
-					<View style={styles.flexRow}><Text>{this.state.nYear}</Text></View>
-					<View style={styles.flexRow}><Text>{this.state.nMonth}</Text></View>
-					<View style={styles.flexRow}><Text>{this.state.nDay}</Text></View>
-					<View style={styles.flexRow}><Text>{this.state.nHour}</Text></View>
+				<View style={styles.viewItem}>
+				<List>
+					<Picker
+						title='公历'
+						data={pickerData}
+						cols={5}
+						value={this.state.value}
+						onOk={this.onSelectDateTime.bind(this)}
+						format={this.dateFormat.bind(this)}
+					>
+						<List.Item multipleLine arrow="horizontal">选择公历</List.Item>
+					</Picker>
+					<Picker
+						title='农历'
+						data={pickerLdata}
+						cols={4}
+						value={this.state.lvalue}
+						onOk={this.onSelectLdateTime.bind(this)}
+						format={this.ldateFormat.bind(this)}
+					>
+						<List.Item multipleLine arrow="horizontal">农历</List.Item>
+					</Picker>
+					<View>
+						<View style={styles.flexRow}><Text>{this.state.nYear}</Text></View>
+						<View style={styles.flexRow}><Text>{this.state.nMonth}</Text></View>
+						<View style={styles.flexRow}><Text>{this.state.nDay}</Text></View>
+						<View style={styles.flexRow}><Text>{this.state.nHour}</Text></View>
+					</View>
+				</List>
 				</View>
 			</View>
 		);
@@ -112,6 +109,12 @@ const styles = StyleSheet.create({
 	flexRow: {
 		flex: 1,
 		flexDirection: 'row'
+	},
+	viewItem:{
+		flex:1,
+		flexDirection:'row',
+		height:50,
+		backgroundColor:'#FF33CC'
 	},
 	welcome: {
 		fontSize: 20,
