@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {
-	AppRegistry,
 	StyleSheet,
 	Text,
 	View
 } from 'react-native';
-import Picker from './com/picker';
-import List from './com/list';
-import InputItem from './com/input-item'
+import Picker from 'antd-mobile/lib/picker';
+import List from 'antd-mobile/lib/list';
+import InputItem from 'antd-mobile/lib/input-item'
 import {pickerData, pickerLdata} from './data';
 import {calendar} from './base'
 export default class DateTimeFuture extends Component {
@@ -24,14 +23,15 @@ export default class DateTimeFuture extends Component {
 		}
 	}
     onSelectDateTime(value) {
+		console.log(value, 'value')
         this.setState({value: value});
     }
 	onSelectLdateTime(value) {
-		console.log(value, 'value')
+		console.log(value, 'lvalue')
 		this.setState({lvalue: value});
 	}
 	dateFormat(values) {
-		//console.log(values, 'values');
+		console.log(values, 'values');
 		let str = "";
 		for (let i in values) {
 			str += values[i].label;
@@ -46,7 +46,7 @@ export default class DateTimeFuture extends Component {
 		return str;
 	}
 	ldateFormat(values) {
-		//console.log(values, 'values');
+		console.log(values, 'values');
 		let obj = calendar.lunar2solar(
 			values[0].value,
 			values[1].value > 12 ? values[1].value - 12 : values[1].value,
@@ -65,6 +65,7 @@ export default class DateTimeFuture extends Component {
 		//this.setState({bzValue: bzstr});
 		
 		return str;
+		return "";
 	}
 	render() {
 		return (
@@ -76,7 +77,7 @@ export default class DateTimeFuture extends Component {
 							data={pickerData}
 							cols={5}
 							value={this.state.value}
-							onOk={this.onSelectDateTime.bind(this)}
+							onChange={this.onSelectDateTime.bind(this)}
 							format={this.dateFormat.bind(this)}
 						>
 							<List.Item multipleLine arrow="horizontal">选择公历</List.Item>
@@ -86,7 +87,7 @@ export default class DateTimeFuture extends Component {
 							data={pickerLdata}
 							cols={4}
 							value={this.state.lvalue}
-							onOk={this.onSelectLdateTime.bind(this)}
+							onChange={this.onSelectLdateTime.bind(this)}
 							format={this.ldateFormat.bind(this)}
 						>
 							<List.Item multipleLine arrow="horizontal">农历</List.Item>
